@@ -63,8 +63,7 @@ const App = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            VerseVibe is being transformed into the ultimate platform for
-            Adventist youth to connect, grow, and share their faith journey.
+            VerseVibe is built for you with a mission to connect hearts to heaven.
           </p>
 
           {/* Countdown Timer */}
