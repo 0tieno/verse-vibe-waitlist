@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Clock,
   Users,
@@ -10,7 +11,7 @@ import {
 
 const App = () => {
   const [email, setEmail] = useState("");
-  const [isJoined, setIsJoined] = useState(false);
+  const [state, handleSubmit] = useForm("mrblyylp");
   const [currentTime, setCurrentTime] = useState(new Date());
 
   const launchDate = useMemo(() => {
@@ -26,15 +27,6 @@ const App = () => {
 
     return () => clearInterval(timer);
   }, []);
-
-  const handleJoinWaitlist = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setIsJoined(true);
-      // Here you would typically send the email to your backend
-      console.log("Joined waitlist with email:", email);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
@@ -63,7 +55,8 @@ const App = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            VerseVibe is built for you with a mission to connect hearts to heaven.
+            VerseVibe is built for you with a mission to connect hearts to
+            heaven.
           </p>
 
           {/* Countdown Timer */}
@@ -152,9 +145,9 @@ const App = () => {
 
         {/* Waitlist Form */}
         <div className="max-w-md mx-auto">
-          {!isJoined ? (
+          {!state.succeeded ? (
             <form
-              onSubmit={handleJoinWaitlist}
+              onSubmit={handleSubmit}
               className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20"
             >
               <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
@@ -168,6 +161,7 @@ const App = () => {
               <div className="flex gap-3">
                 <input
                   type="email"
+                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
@@ -176,12 +170,19 @@ const App = () => {
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center gap-2 font-medium"
+                  disabled={state.submitting}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Join
+                  {state.submitting ? "Joining..." : "Join"}
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={state.errors}
+                className="text-red-500 text-sm mt-2"
+              />
             </form>
           ) : (
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20 text-center">
