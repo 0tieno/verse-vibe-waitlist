@@ -261,7 +261,7 @@ const App = () => {
           <p className="text-gray-500">
             Questions? Contact us at{" "}
             <a
-              href="mailto:kyusda@gmail.com"
+              href="mailto:kyusdachurch@gmail.com"
               className="text-blue-600 hover:underline"
             >
               support@versevibe.com
