@@ -13,6 +13,19 @@ const App = () => {
   const [email, setEmail] = useState("");
   const [state, handleSubmit] = useForm("mrblyylp");
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [submittedEmails, setSubmittedEmails] = useState<string[]>([]);
+
+  // Load previously submitted emails from localStorage on component mount
+  useEffect(() => {
+    const stored = localStorage.getItem("versevibe-submitted-emails");
+    if (stored) {
+      try {
+        setSubmittedEmails(JSON.parse(stored));
+      } catch (error) {
+        console.error("Error parsing stored emails:", error);
+      }
+    }
+  }, []);
 
   const launchDate = useMemo(() => {
     const date = new Date();
@@ -27,6 +40,32 @@ const App = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  // Custom submit handler to check for duplicates
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Check if email was already submitted
+    if (submittedEmails.includes(email.toLowerCase())) {
+      e.preventDefault();
+      alert("This email has already been added to the waitlist!");
+      return;
+    }
+
+    // Store email immediately (optimistic update)
+    const emailToStore = email.toLowerCase();
+    const updatedEmails = [...submittedEmails, emailToStore];
+    setSubmittedEmails(updatedEmails);
+    localStorage.setItem(
+      "versevibe-submitted-emails",
+      JSON.stringify(updatedEmails)
+    );
+
+    // Proceed with Formspree submission
+    handleSubmit(e);
+  };
+
+  // Check if current email is already submitted
+  const isEmailAlreadySubmitted =
+    email && submittedEmails.includes(email.toLowerCase());
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
@@ -147,7 +186,7 @@ const App = () => {
         <div className="max-w-md mx-auto">
           {!state.succeeded ? (
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
               className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20"
             >
               <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
@@ -165,18 +204,31 @@ const App = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className={`flex-1 px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:border-transparent ${
+                    isEmailAlreadySubmitted
+                      ? "border-red-300 focus:ring-red-500 bg-red-50"
+                      : "border-gray-200 focus:ring-blue-500"
+                  }`}
                   required
                 />
                 <button
                   type="submit"
-                  disabled={state.submitting}
+                  disabled={
+                    state.submitting || Boolean(isEmailAlreadySubmitted)
+                  }
                   className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {state.submitting ? "Joining..." : "Join"}
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
+
+              {isEmailAlreadySubmitted && (
+                <div className="text-red-500 text-sm mt-2">
+                  This email has already been added to the waitlist!
+                </div>
+              )}
+
               <ValidationError
                 prefix="Email"
                 field="email"
