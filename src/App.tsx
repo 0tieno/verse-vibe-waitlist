@@ -94,7 +94,7 @@ const App = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            VerseVibe is built for you with a mission to connect hearts to
+            VerseVibe is the ultimate Adventist social media app built for you with a mission to connect hearts to
             heaven.
           </p>
 
