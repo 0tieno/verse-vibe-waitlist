@@ -28,8 +28,8 @@ const App = () => {
   }, []);
 
   const launchDate = useMemo(() => {
-    const date = new Date();
-    date.setDate(date.getDate() + 2);
+    // Set launch date to Monday, August 11th, 2025
+    const date = new Date("2025-08-11T00:00:00");
     return date;
   }, []);
 
@@ -82,7 +82,12 @@ const App = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Calendar className="w-4 h-4" />
-            Launching in 2 days
+            Launching in{" "}
+            {Math.floor(
+              (launchDate.getTime() - currentTime.getTime()) /
+                (1000 * 60 * 60 * 24)
+            )}{" "}
+            days
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
@@ -94,8 +99,8 @@ const App = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            VerseVibe is the ultimate Adventist social media app built for you with a mission to connect hearts to
-            heaven.
+            VerseVibe is the ultimate Adventist social media app built for you
+            with a mission to connect hearts to heaven.
           </p>
 
           {/* Countdown Timer */}
