@@ -266,10 +266,10 @@ const App = () => {
           <p className="text-gray-500">
             Questions? Contact us at{" "}
             <a
-              href="mailto:kyusdachurch@gmail.com"
+              href="mailto:admin@versevibe.co.ke"
               className="text-blue-600 hover:underline"
             >
-              support@versevibe.com
+              admin@versevibe.co.ke
             </a>
           </p>
         </div>
