@@ -29,7 +29,7 @@ const App = () => {
 
   const launchDate = useMemo(() => {
     // Set launch date to Monday, August 11th, 2025
-    const date = new Date("2025-08-25T00:00:00");
+    const date = new Date("2025-08-22T00:00:00");
     return date;
   }, []);
 
