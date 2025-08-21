@@ -5,18 +5,18 @@ const App = () => {
   // const [email, setEmail] = useState("");
   // const [state, handleSubmit] = useForm("mrblyylp");
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [submittedEmails, setSubmittedEmails] = useState<string[]>([]);
+  // const [submittedEmails, setSubmittedEmails] = useState<string[]>([]);
 
   // Load previously submitted emails from localStorage on component mount
   useEffect(() => {
-    const stored = localStorage.getItem("versevibe-submitted-emails");
-    if (stored) {
-      try {
-        setSubmittedEmails(JSON.parse(stored));
-      } catch (error) {
-        console.error("Error parsing stored emails:", error);
-      }
-    }
+    // const stored = localStorage.getItem("versevibe-submitted-emails");
+    // if (stored) {
+    //   try {
+    //     setSubmittedEmails(JSON.parse(stored));
+    //   } catch (error) {
+    //     console.error("Error parsing stored emails:", error);
+    //   }
+    // }
   }, []);
 
   const launchDate = useMemo(() => {
