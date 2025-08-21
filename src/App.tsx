@@ -235,7 +235,8 @@ const App = () => {
           </div>
         </div>
 
-        {/* Waitlist Form */}
+        {/* Waitlist Form (commented out) */}
+        {/**
         <div className="max-w-md mx-auto">
           {!state.succeeded ? (
             <form
@@ -308,6 +309,7 @@ const App = () => {
             </div>
           )}
         </div>
+        */}
 
         {/* Bottom Text */}
         <div className="text-center mt-16">
