@@ -105,47 +105,62 @@ const App = () => {
 
           {/* Countdown Timer */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20 mb-12">
-            <div className="flex items-center justify-center gap-6">
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
-                  {Math.floor(
-                    (launchDate.getTime() - currentTime.getTime()) /
-                      (1000 * 60 * 60 * 24)
-                  )}
+            {launchDate.getTime() - currentTime.getTime() > 0 ? (
+              <div className="flex items-center justify-center gap-6">
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+                    {Math.floor(
+                      (launchDate.getTime() - currentTime.getTime()) /
+                        (1000 * 60 * 60 * 24)
+                    )}
+                  </div>
+                  <div className="text-gray-600 font-medium">Days</div>
                 </div>
-                <div className="text-gray-600 font-medium">Days</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">
-                  {Math.floor(
-                    ((launchDate.getTime() - currentTime.getTime()) %
-                      (1000 * 60 * 60 * 24)) /
-                      (1000 * 60 * 60)
-                  )}
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">
+                    {Math.floor(
+                      ((launchDate.getTime() - currentTime.getTime()) %
+                        (1000 * 60 * 60 * 24)) /
+                        (1000 * 60 * 60)
+                    )}
+                  </div>
+                  <div className="text-gray-600 font-medium">Hours</div>
                 </div>
-                <div className="text-gray-600 font-medium">Hours</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-pink-600 mb-2">
-                  {Math.floor(
-                    ((launchDate.getTime() - currentTime.getTime()) %
-                      (1000 * 60 * 60)) /
-                      (1000 * 60)
-                  )}
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-pink-600 mb-2">
+                    {Math.floor(
+                      ((launchDate.getTime() - currentTime.getTime()) %
+                        (1000 * 60 * 60)) /
+                        (1000 * 60)
+                    )}
+                  </div>
+                  <div className="text-gray-600 font-medium">Minutes</div>
                 </div>
-                <div className="text-gray-600 font-medium">Minutes</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-orange-600 mb-2">
-                  {Math.floor(
-                    ((launchDate.getTime() - currentTime.getTime()) %
-                      (1000 * 60)) /
-                      1000
-                  )}
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-orange-600 mb-2">
+                    {Math.floor(
+                      ((launchDate.getTime() - currentTime.getTime()) %
+                        (1000 * 60)) /
+                        1000
+                    )}
+                  </div>
+                  <div className="text-gray-600 font-medium">Seconds</div>
                 </div>
-                <div className="text-gray-600 font-medium">Seconds</div>
               </div>
-            </div>
+            ) : (
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-green-700 mb-4">
+                  Launched, visit{" "}
+                  <a
+                    href="https://versevibe.co.ke"
+                    className="text-blue-600 underline"
+                  >
+                    versevibe.co.ke
+                  </a>{" "}
+                  now
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
