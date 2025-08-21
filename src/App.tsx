@@ -150,16 +150,22 @@ const App = () => {
             ) : (
               <div className="text-center">
                 <div className="text-3xl md:text-4xl font-bold text-green-700 mb-4">
-                  Launched, visit{' '}
+                  Launched, visit{" "}
                   <a
                     href="https://versevibe.co.ke"
                     className="text-blue-600 underline"
                   >
                     versevibe.co.ke
-                  </a>{' '}now
+                  </a>{" "}
+                  now
                 </div>
                 <div className="text-lg text-gray-700 mt-2">
-                  Date launched: {launchDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                  Date launched:{" "}
+                  {launchDate.toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </div>
               </div>
             )}
