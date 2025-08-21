@@ -1,17 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
-import { useForm, ValidationError } from "@formspree/react";
-import {
-  Clock,
-  Users,
-  Calendar,
-  ArrowRight,
-  CheckCircle,
-  Star,
-} from "lucide-react";
+import { Clock, Users, Calendar, Star } from "lucide-react";
 
 const App = () => {
-  const [email, setEmail] = useState("");
-  const [state, handleSubmit] = useForm("mrblyylp");
+  // const [email, setEmail] = useState("");
+  // const [state, handleSubmit] = useForm("mrblyylp");
   const [currentTime, setCurrentTime] = useState(new Date());
   const [submittedEmails, setSubmittedEmails] = useState<string[]>([]);
 
@@ -41,31 +33,31 @@ const App = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Custom submit handler to check for duplicates
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // Check if email was already submitted
-    if (submittedEmails.includes(email.toLowerCase())) {
-      e.preventDefault();
-      alert("This email has already been added to the waitlist!");
-      return;
-    }
+  // Custom submit handler to check for duplicates (commented out)
+  // const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   // Check if email was already submitted
+  //   if (submittedEmails.includes(email.toLowerCase())) {
+  //     e.preventDefault();
+  //     alert("This email has already been added to the waitlist!");
+  //     return;
+  //   }
+  //
+  //   // Store email immediately (optimistic update)
+  //   const emailToStore = email.toLowerCase();
+  //   const updatedEmails = [...submittedEmails, emailToStore];
+  //   setSubmittedEmails(updatedEmails);
+  //   localStorage.setItem(
+  //     "versevibe-submitted-emails",
+  //     JSON.stringify(updatedEmails)
+  //   );
+  //
+  //   // Proceed with Formspree submission
+  //   handleSubmit(e);
+  // };
 
-    // Store email immediately (optimistic update)
-    const emailToStore = email.toLowerCase();
-    const updatedEmails = [...submittedEmails, emailToStore];
-    setSubmittedEmails(updatedEmails);
-    localStorage.setItem(
-      "versevibe-submitted-emails",
-      JSON.stringify(updatedEmails)
-    );
-
-    // Proceed with Formspree submission
-    handleSubmit(e);
-  };
-
-  // Check if current email is already submitted
-  const isEmailAlreadySubmitted =
-    email && submittedEmails.includes(email.toLowerCase());
+  // Check if current email is already submitted (commented out)
+  // const isEmailAlreadySubmitted =
+  //   email && submittedEmails.includes(email.toLowerCase());
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
